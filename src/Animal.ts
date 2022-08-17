@@ -17,6 +17,8 @@ export abstract class Animal implements Actor, Drawable {
   ) {
     this._location = location;
     this.map = map;
+    // set the animals age
+    this.age = randomAge ? randomInt(this.getMaxAge()) : 0;
   }
 
   private _alive: boolean = true;
@@ -28,7 +30,7 @@ export abstract class Animal implements Actor, Drawable {
     return this._alive;
   }
 
-  public _location: Location
+  private _location: Location
 
   /**
    * Returns the current location of the animal.
@@ -37,6 +39,16 @@ export abstract class Animal implements Actor, Drawable {
     return this._location;
   }
 
+  /**
+   * Returns the color of this animal, to be drawn on the canvas
+   */
+  abstract get color(): string;
+
+  /**
+   * Updates the location of the animal and also updates the map.
+   *
+   * @param newLocation
+   */
   set location(newLocation: Location) {
     // update the animal's location on the map
     this.map.updateAnimalLocation(this, newLocation)

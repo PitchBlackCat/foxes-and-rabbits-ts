@@ -8,13 +8,14 @@ import {randomRange} from './functions';
  * This class represents a fox
  */
 export class Fox extends Animal {
-  private static BREEDING_AGE: number = 15;
-  private static MAX_AGE: number = 150;
-  private static BREEDING_PROBABILITY: number = 0.04;
-  private static MAX_LITTER_SIZE: number = 2;
+  // A single eaten rabbit can sustain a fox for this many simulated steps
   private static RABBIT_FOOD_VALUE: number = 9;
-  private static MAX_FOOD_VALUE: number = Fox.RABBIT_FOOD_VALUE * 2;
 
+  // A fox's stomach can hold this amount of food at maximum
+  private static MAX_FOOD_LEVEL: number = Fox.RABBIT_FOOD_VALUE * 2;
+
+  // represents the amount of food this fox has in it's stomach. It will decrease by 1 every step and kills the fox
+  // when it reaches 0.
   private foodLevel: number;
 
   public constructor(map: Map, location: Location, randomAge: boolean = false) {
@@ -92,47 +93,40 @@ export class Fox extends Animal {
     }
   }
 
+  /**
+   * Do all the things the fox does in a single simulated step.
+   *
+   * The fox its hunger and age is incremented and if the fox is still alive, it will try to give birth and hunt
+   * for food. If food is found the fox will move the corresponding location otherwise it will try to wander to
+   * a free adjacent location. if the fox can't change location it will die.
+   */
   public act() {
+    // increase it's hunger
     this.incrementHunger();
+
+    // increase it's age
     this.incrementAge();
 
+    // if it's still alive
     if (this.alive) {
-      const newLocation: Location | null = this.hunt(this.map) || this.map.getRandomFreeAdjacentLocation(this.location);
-      newLocation ? this.location = newLocation : this.kill();
+      // try to give birth
       this.tryToGiveBirth(this.map);
+
+      // see if we can find something to eat and take it's place. Otherwise, wander to a random adjacent location
+      const newLocation: Location | null = this.hunt(this.map) || this.map.getRandomFreeAdjacentLocation(this.location);
+
+      // if we can't find a free adjacent location, die because of overpopulation
+      newLocation ? this.location = newLocation : this.kill();
     }
   }
 
-  private incrementAge() {
-    this.age++;
-    if (this.age > Fox.MAX_AGE) {
-      this.kill();
-    }
-  }
-
-  private incrementHunger()
-  {
-    this.foodLevel--;
-    if(this.foodLevel <= 0) {
-      this.kill();
-    }
-  }
-
-  private tryToGiveBirth(map: Map) {
-    if (this.age < Fox.BREEDING_AGE) {
-      return;
-    }
-
-    const freeLocations: Location[] = map.getFreeAdjacentLocations(this.location);
-    let litterCounter = 0;
-    freeLocations.forEach(loc => {
-      if (litterCounter < Fox.MAX_LITTER_SIZE && Math.random() < Fox.BREEDING_PROBABILITY) {
-        litterCounter++;
-        map.addAnimal(new Fox(map, loc));
-      }
-    });
-  }
-
+  /**
+   * Look at all the adjacent locations and see if there's an animal we can eat.
+   * If we can; eat it, increase our foodlevel and take it's location.
+   *
+   * @param map
+   * @private
+   */
   private hunt(map: Map): Location | null
   {
     // find the adjacent locations
@@ -147,8 +141,10 @@ export class Fox extends Animal {
         animal.kill();
         // increase the fox its foodlevel
         this.foodLevel += Fox.RABBIT_FOOD_VALUE;
-        this.foodLevel = Math.min(this.foodLevel, Fox.MAX_FOOD_VALUE)
+        // make sure the foodlevel cannot get above its maximum
+        this.foodLevel = Math.min(this.foodLevel, Fox.MAX_FOOD_LEVEL)
 
+        // return the location
         return location;
       }
     }

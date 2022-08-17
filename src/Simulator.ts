@@ -1,6 +1,7 @@
 import {Map} from './Map';
 import {Rabbit} from './Rabbit';
 import {Fox} from './Fox';
+import {Hunter} from './Hunter';
 import {Canvas} from './Canvas';
 import {Stats} from './Stats';
 
@@ -11,6 +12,7 @@ import {Stats} from './Stats';
 export class Simulator {
   private static INITIAL_FOX_POPULATION = 100;
   private static INITIAL_RABBIT_POPULATION = 250;
+  private static INITIAL_HUNTER_POPULATION = 10;
 
   private map: Map;
   private canvas: Canvas;
@@ -43,6 +45,12 @@ export class Simulator {
       const location = this.map.getRandomFreeLocation()
       const fox = new Fox(this.map, location, true);
       this.map.addAnimal(fox);
+    }
+
+    for (let x = 0; x < Simulator.INITIAL_HUNTER_POPULATION; x++) {
+      const location = this.map.getRandomFreeLocation()
+      const hunter = new Hunter(this.map, location);
+      this.map.addAnimal(hunter);
     }
   }
 

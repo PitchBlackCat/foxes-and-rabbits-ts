@@ -1,9 +1,17 @@
 import {Simulator} from './Simulator';
 
+/**
+ * Controls is the bridge beteen the html buttons and the simulator.
+ * it keeps track of all the html button elements, and adds eventlisteners that will trigger certain functionality.
+ */
 export class Controls {
+  // The FPS of the simulation
   private static FPS = 20;
 
+  // If we start an interval, we need to save the handle so we can cancel it again.
   private intervalHandle: any;
+
+  // the simulator that we try to control
   private simulator: Simulator;
 
   constructor(simulator: Simulator) {
@@ -11,6 +19,9 @@ export class Controls {
     this.bindButtons();
   }
 
+  /**
+   * Find all the button elements and add event listeners to them, so stuff can happen when we click them
+   */
   bindButtons() {
     const startBtn = document.getElementById('start') as HTMLButtonElement;
     const stopBtn = document.getElementById('stop') as HTMLButtonElement;
@@ -21,6 +32,9 @@ export class Controls {
     resetBtn.addEventListener('click', () => this.reset());
   }
 
+  /**
+   * Start the simulation. It will call the step method of the simulator FPS times per second.
+   */
   start() {
     if (this.intervalHandle) {
       return;
@@ -31,7 +45,11 @@ export class Controls {
     }, 1000 / Controls.FPS);
   }
 
+  /**
+   * Stop the simulation.
+   */
   stop() {
+    // Check if the simulation is running in the first place; we can't stop what isn't running.
     if (!this.intervalHandle) {
       return;
     }
@@ -40,6 +58,9 @@ export class Controls {
     this.intervalHandle = null;
   }
 
+  /**
+   * Reset the simulation.
+   */
   reset() {
     this.simulator.reset();
   }
