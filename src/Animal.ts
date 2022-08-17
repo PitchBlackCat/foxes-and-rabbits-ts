@@ -51,7 +51,7 @@ export abstract class Animal implements Actor, Drawable {
    */
   set location(newLocation: Location) {
     // update the animal's location on the map
-    this.map.updateAnimalLocation(this, newLocation)
+    this.map.updateActorLocation(this, newLocation)
     // update the animal's location
     this._location = newLocation;
   }
@@ -99,7 +99,7 @@ export abstract class Animal implements Actor, Drawable {
         // increment the litter counter
         litterCounter++;
         // add a new animal to the map
-        map.addAnimal(this.createAnimal(map, location));
+        map.addActor(this.createAnimal(map, location));
       }
     });
   }
@@ -111,7 +111,7 @@ export abstract class Animal implements Actor, Drawable {
     // set the animal's alive flag to false
     this._alive = false;
     // remove the animal from the map
-    this.map.removeAnimal(this);
+    this.map.removeActor(this);
   }
 
   /**

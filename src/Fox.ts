@@ -134,7 +134,7 @@ export class Fox extends Animal {
     // do something for each location
     for (const location of neighbours) {
       // get the animal at the location
-      const animal = map.getAnimalAt(location);
+      const animal = map.getActorAt(location);
       // if an animal is found and the animal is rabbit and alive
       if (animal != null && animal instanceof Rabbit && animal.alive) {
         // kill the animal

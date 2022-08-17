@@ -32,8 +32,8 @@ export class Stats {
 
   updateAnimalCount(map: Map) {
     // update the population counters
-    this.rabbitCountElement.value = `${map.animals.filter(a => a instanceof Rabbit).length}`;
-    this.foxCountElement.value = `${map.animals.filter(a => a instanceof Fox).length}`;
+    this.rabbitCountElement.value = `${map.actors.filter(a => a instanceof Rabbit).length}`;
+    this.foxCountElement.value = `${map.actors.filter(a => a instanceof Fox).length}`;
   }
 
 }

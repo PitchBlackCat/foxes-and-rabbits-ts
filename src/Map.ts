@@ -14,7 +14,7 @@ export class Map {
   public map: any[][] = [];
 
   // A seperate array that keeps a list of all actors, because looping through the entire map is quite a performance hit.
-  public animals: Actor[] = [];
+  public actors: Actor[] = [];
 
   public constructor(width: number, height: number) {
     this._width = width;
@@ -47,53 +47,53 @@ export class Map {
     this.map = new Array(this.height).fill(null);
     this.map = this.map.map(() => new Array(this.width).fill(null));
 
-    this.animals = [];
+    this.actors = [];
   }
 
   /**
    * Returns the animal that occupies the given location, or null if no animal is occupying it.
    * @param location
    */
-  public getAnimalAt(location: Location): Actor | null {
+  public getActorAt(location: Location): Actor | null {
     return this.map[location.y][location.x]
   }
 
   /**
    * Animals keep their own location, this method updates the map, so they occupy that location on the actual map.
-   * @param animal
+   * @param actor
    * @param newLocation
    */
-  public updateAnimalLocation(animal: Actor, newLocation: Location) {
+  public updateActorLocation(actor: Actor, newLocation: Location) {
     if (this.map[newLocation.y][newLocation.x] != null) {
       throw new Error('trying to move to location that is already occupied');
     }
 
-    this.map[animal.location.y][animal.location.x] = null;
-    this.map[newLocation.y][newLocation.x] = animal;
+    this.map[actor.location.y][actor.location.x] = null;
+    this.map[newLocation.y][newLocation.x] = actor;
   }
 
   /**
    * Adds a new animal to the map.
-   * @param animal
+   * @param actor
    */
-  public addAnimal(animal: Actor): void {
-    this.map[animal.location.y][animal.location.x] = animal;
-    this.animals.push(animal);
+  public addActor(actor: Actor): void {
+    this.map[actor.location.y][actor.location.x] = actor;
+    this.actors.push(actor);
   }
 
   /**
    * Removes an animal from the map
-   * @param animal
+   * @param actor
    */
-  public removeAnimal(animal: Actor): void {
-    this.map[animal.location.y][animal.location.x] = null;
+  public removeActor(actor: Actor): void {
+    this.map[actor.location.y][actor.location.x] = null;
   }
 
   /**
    * Returns a list of locations that are north, east, south and west of the given location.
    * Takes the boundaries of the map into account.
    *
-   * @param animal
+   * @param location
    */
   public getAdjacentLocations(location: Location): Location[] {
     const locations: Location[] = []
@@ -139,7 +139,7 @@ export class Map {
     const y = randomRange(0, this.height - 1);
     const location: Location = {x, y};
 
-    return !this.getAnimalAt(location) ? location : this.getRandomFreeLocation();
+    return !this.getActorAt(location) ? location : this.getRandomFreeLocation();
   }
 
   /**
@@ -155,6 +155,6 @@ export class Map {
    * Returns all location that are not occupied by anything and adjacent to the given location
    */
   public getFreeAdjacentLocations(location: Location): Location[] {
-    return this.getAdjacentLocations(location).filter(location => !this.getAnimalAt(location));
+    return this.getAdjacentLocations(location).filter(location => !this.getActorAt(location));
   }
 }

@@ -3,17 +3,27 @@ import {Drawable} from './Drawable';
 import {Location} from "./Location";
 import {Map} from "./Map";
 import {Fox} from "./Fox";
+import {randomItem} from './functions';
 
 /**
  * The hunter tries to protect it's fluffy buns. He hunts foxes down with a grudge.
  */
 export class Hunter implements Actor, Drawable {
+    // Hunters can be from any corner of the world, and come in many different skintones.
+    private static SKINTONES: string[] = ['#FFCC99', '#BF9973', '#80664D', '#403326', '#E6B88A'];
+
     private map: Map;
+
     private _location: Location;
+
+    private _color: string;
 
     constructor(map: Map, location: Location) {
         this.map = map;
         this._location = location;
+
+        // pick a random skintone for this hunter.
+        this._color = randomItem(Hunter.SKINTONES);
     }
 
     /**
@@ -34,7 +44,7 @@ export class Hunter implements Actor, Drawable {
    * Returns the color of this hunter, to be drawn on the canvas
    */
   get color(): string {
-      return '#000';
+      return this._color;
   }
 
   /**
@@ -44,7 +54,7 @@ export class Hunter implements Actor, Drawable {
    */
   set location(newLocation: Location) {
     // update the animal's location on the map
-    this.map.updateAnimalLocation(this, newLocation)
+    this.map.updateActorLocation(this, newLocation)
     // update the animal's location
     this._location = newLocation;
   }
@@ -71,7 +81,7 @@ export class Hunter implements Actor, Drawable {
     // do something for each location
     for (const location of neighbours) {
       // get the animal at the location
-      const animal = map.getAnimalAt(location);
+      const animal = map.getActorAt(location);
       // if an animal is found and the animal is rabbit and alive
       if (animal != null && animal instanceof Fox && animal.alive) {
         animal.kill();

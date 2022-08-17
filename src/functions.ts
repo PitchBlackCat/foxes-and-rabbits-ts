@@ -14,3 +14,11 @@ export function randomRange(min: number, max: number): number {
 export function randomInt(max: number): number {
   return Math.floor(Math.random() * (max + 1));
 }
+
+/**
+ * Returns a random item from an array.
+ * @param arr
+ */
+export function randomItem<T>(arr: T[]): T {
+  return arr[randomInt(arr.length - 1)];
+}

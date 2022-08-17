@@ -38,24 +38,24 @@ export class Simulator {
     for (let x = 0; x < Simulator.INITIAL_RABBIT_POPULATION; x++) {
       const location = this.map.getRandomFreeLocation()
       const rabbit = new Rabbit(this.map, location, true);
-      this.map.addAnimal(rabbit);
+      this.map.addActor(rabbit);
     }
 
     for (let x = 0; x < Simulator.INITIAL_FOX_POPULATION; x++) {
       const location = this.map.getRandomFreeLocation()
       const fox = new Fox(this.map, location, true);
-      this.map.addAnimal(fox);
+      this.map.addActor(fox);
     }
 
     for (let x = 0; x < Simulator.INITIAL_HUNTER_POPULATION; x++) {
       const location = this.map.getRandomFreeLocation()
       const hunter = new Hunter(this.map, location);
-      this.map.addAnimal(hunter);
+      this.map.addActor(hunter);
     }
   }
 
   step() {
-    this.map.animals.forEach(animal => animal.act());
+    this.map.actors.forEach(animal => animal.act());
     this.clearDeadAnimals();
 
     this.canvas.draw(this.map);
@@ -63,10 +63,10 @@ export class Simulator {
   }
 
   private clearDeadAnimals() {
-    for (const index in this.map.animals) {
-      const animal = this.map.animals[index];
+    for (const index in this.map.actors) {
+      const animal = this.map.actors[index];
       if (!animal.alive) {
-        delete this.map.animals[index];
+        delete this.map.actors[index];
         this.map.map[animal.location.y][animal.location.x] = null;
       }
     }
