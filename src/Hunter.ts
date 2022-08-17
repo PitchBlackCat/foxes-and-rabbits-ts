@@ -64,7 +64,9 @@ export class Hunter implements Actor, Drawable {
       const newLocation: Location | null = this.hunt(this.map) || this.map.getRandomFreeAdjacentLocation(this.location);
 
       // if we can't find a free adjacent location, stand still (If we keep absolutly still, the foxes won't be able to see us!)
-      this.location = newLocation ? newLocation : this.location;
+      if (newLocation !== null) {
+        this.location = newLocation
+      }
     }
 
   /**
