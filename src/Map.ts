@@ -65,7 +65,7 @@ export class Map {
    */
   public updateActorLocation(actor: Actor, newLocation: Location) {
     if (this.map[newLocation.y][newLocation.x] != null) {
-      throw new Error('trying to move to location that is already occupied');
+      throw new Error(`Trying to move ${actor.constructor.name} to location [${newLocation.x}, ${newLocation.y}], but it's already occupied by ${this.map[newLocation.y][newLocation.x].constructor.name}`);
     }
 
     this.map[actor.location.y][actor.location.x] = null;

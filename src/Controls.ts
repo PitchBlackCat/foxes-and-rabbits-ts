@@ -6,7 +6,7 @@ import {Simulator} from './Simulator';
  */
 export class Controls {
   // The FPS of the simulation
-  private static FPS = 20;
+  private static FPS = 10;
 
   // If we start an interval, we need to save the handle so we can cancel it again.
   private intervalHandle: any;

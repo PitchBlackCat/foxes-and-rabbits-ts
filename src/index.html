@@ -1,15 +1,59 @@
 <html>
 <head>
   <script src="dist/main.js"></script>
-</head>
-<body>
 
-<div class="controls">
+  <style>
+      html {
+          /*background-color: #202125;*/
+          /*color: white;*/
+      }
+
+      h1 {
+          font-family: sans-serif;
+      }
+
+      body {
+          min-width: 100%;
+          min-height: 100%;
+          margin: 0;
+          padding: 0;
+      }
+
+      label, button {
+          margin: 0 12px;
+      }
+
+      canvas {
+          background-color: #e7ffd8;
+          margin: 12px;
+      }
+
+      .center {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+      }
+
+      .column {
+          flex-direction: column;
+      }
+  </style>
+</head>
+<body class="center column">
+
+<div class="center">
+  <h1>Foxes and Rabbits</h1>
+</div>
+
+<div class="center">
   <button id="start">start</button>
   <button id="stop">stop</button>
   <button id="reset">reset</button>
-  &nbsp;
-  &nbsp;
+</div>
+
+<canvas id="canvas" class="center"></canvas>
+
+<div class="center">
   <label>
     step:
     <input disabled id="stepCount" style="width: 42px"/>
@@ -25,10 +69,6 @@
     <input disabled id="foxCount" style="width: 42px"/>
   </label>
 </div>
-
-<canvas id="canvas">
-
-</canvas>
 
 </body>
 </html>

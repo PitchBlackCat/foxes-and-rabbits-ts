@@ -109,14 +109,14 @@ export class Fox extends Animal {
 
     // if it's still alive
     if (this.alive) {
-      // try to give birth
-      this.tryToGiveBirth(this.map);
-
       // see if we can find something to eat and take it's place. Otherwise, wander to a random adjacent location
       const newLocation: Location | null = this.hunt(this.map) || this.map.getRandomFreeAdjacentLocation(this.location);
 
       // if we can't find a free adjacent location, die because of overpopulation
       newLocation ? this.location = newLocation : this.kill();
+
+      // try to give birth
+      this.tryToGiveBirth(this.map);
     }
   }
 

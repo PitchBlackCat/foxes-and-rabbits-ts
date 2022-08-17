@@ -12,7 +12,7 @@ import {Stats} from './Stats';
 export class Simulator {
   private static INITIAL_FOX_POPULATION = 100;
   private static INITIAL_RABBIT_POPULATION = 250;
-  private static INITIAL_HUNTER_POPULATION = 10;
+  private static INITIAL_HUNTER_POPULATION = 50;
 
   private map: Map;
   private canvas: Canvas;
