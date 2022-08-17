@@ -1,7 +1,7 @@
 import {Simulator} from './Simulator';
 
 export class Controls {
-  private static FPS = 5;
+  private static FPS = 20;
 
   private intervalHandle: any;
   private simulator: Simulator;

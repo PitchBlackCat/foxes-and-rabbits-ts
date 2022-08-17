@@ -17,18 +17,18 @@ export abstract class Animal {
 
   public _location: Location
 
-  get location(): Location {
+   get location(): Location {
     return this._location;
   }
 
-  protected set location(newLocation: Location) {
+  set location(newLocation: Location) {
     this.map.updateAnimalLocation(this, newLocation)
     this._location = newLocation;
   }
 
   public kill() {
     this._alive = false;
-    this.map.map[this.location.y][this.location.x] = null;
+    this.map.removeAnimal(this);
   }
 
   protected age: number = 0;

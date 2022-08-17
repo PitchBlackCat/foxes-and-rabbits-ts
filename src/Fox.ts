@@ -7,7 +7,7 @@ import {randomInt, randomRange} from './functions';
 export class Fox extends Animal {
   private static BREEDING_AGE: number = 15;
   private static MAX_AGE: number = 150;
-  private static BREEDING_PROBABILITY: number = 0.08;
+  private static BREEDING_PROBABILITY: number = 0.04;
   private static MAX_LITTER_SIZE: number = 2;
   private static RABBIT_FOOD_VALUE: number = 9;
 

@@ -1,13 +1,30 @@
 <html>
 <head>
-  <script src="dist/main.js"></script>
+    <base href="/ts-foxes-and-rabbits/"/>
+    <script src="dist/main.js"></script>
 </head>
 <body>
 
 <div class="controls">
-  <button id="start">start</button>
-  <button id="stop">stop</button>
-  <button id="reset">reset</button>
+    <button id="start">start</button>
+    <button id="stop">stop</button>
+    <button id="reset">reset</button>
+  &nbsp;
+  &nbsp;
+  <label>
+    step:
+    <input disabled id="stepCount" style="width: 42px"/>
+  </label>
+
+  <label>
+    rabbits:
+    <input disabled id="rabbitCount" style="width: 42px"/>
+  </label>
+
+  <label>
+    foxes:
+    <input disabled id="foxCount" style="width: 42px"/>
+  </label>
 </div>
 
 <canvas id="canvas">

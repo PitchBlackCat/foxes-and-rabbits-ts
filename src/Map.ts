@@ -49,6 +49,10 @@ export class Map {
     this.animals.push(animal);
   }
 
+  public removeAnimal(animal: Animal): void {
+    this.map[animal.location.y][animal.location.x] = null;
+  }
+
   public getAdjacentLocations(location: Location): Location[] {
     const locations: Location[] = []
 

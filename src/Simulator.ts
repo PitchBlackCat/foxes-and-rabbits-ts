@@ -4,8 +4,8 @@ import {Fox} from './Fox';
 import {Canvas} from './Canvas';
 
 export class Simulator {
-  private static INITIAL_FOX_POPULATION = 20;
-  private static INITIAL_RABBIT_POPULATION = 100;
+  private static INITIAL_FOX_POPULATION = 100;
+  private static INITIAL_RABBIT_POPULATION = 250;
 
   private map: Map;
   private canvas: Canvas;
@@ -26,13 +26,13 @@ export class Simulator {
   populate() {
     for (let x = 0; x < Simulator.INITIAL_RABBIT_POPULATION; x++) {
       const location = this.map.getRandomFreeLocation()
-      const rabbit = new Rabbit(this.map, location);
+      const rabbit = new Rabbit(this.map, location, true);
       this.map.addAnimal(rabbit);
     }
 
     for (let x = 0; x < Simulator.INITIAL_FOX_POPULATION; x++) {
       const location = this.map.getRandomFreeLocation()
-      const fox = new Fox(this.map, location);
+      const fox = new Fox(this.map, location, true);
       this.map.addAnimal(fox);
     }
   }
@@ -40,9 +40,6 @@ export class Simulator {
   step() {
     this.map.animals.forEach(animal => animal.act());
     this.clearDeadAnimals();
-
-    // TODO: Dode dieren worden nog niet opgeruimd
-    console.log(this.map.animals.length, this.map.animals.filter(a => a.alive).length);
 
     this.canvas.draw(this.map);
   }

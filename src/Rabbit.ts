@@ -11,7 +11,6 @@ export class Rabbit extends Animal {
   public constructor(map: Map, location: Location, randomAge: boolean = false) {
     super(map, location);
     this.age = randomAge ? randomInt(Rabbit.MAX_AGE) : 0;
-
   }
 
   public act() {
