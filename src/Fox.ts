@@ -2,8 +2,11 @@ import {Animal} from './Animal';
 import {Location} from './Location';
 import {Map} from './Map';
 import {Rabbit} from './Rabbit';
-import {randomInt, randomRange} from './functions';
+import {randomRange} from './functions';
 
+/**
+ * This class represents a fox
+ */
 export class Fox extends Animal {
   private static BREEDING_AGE: number = 15;
   private static MAX_AGE: number = 150;
@@ -15,9 +18,78 @@ export class Fox extends Animal {
   private foodLevel: number;
 
   public constructor(map: Map, location: Location, randomAge: boolean = false) {
-    super(map, location);
-      this.age = randomAge ? randomInt(Fox.MAX_AGE) : 0;
-      this.foodLevel = randomRange(Fox.RABBIT_FOOD_VALUE, Fox.RABBIT_FOOD_VALUE * 2);
+    super(map, location, randomAge);
+    // set the fox its food level
+    this.foodLevel = randomRange(Fox.RABBIT_FOOD_VALUE, Fox.RABBIT_FOOD_VALUE * 2);
+  }
+
+  /**
+   * Foxes are orange, just like their favourite fruit.
+   */
+  get color(): string {
+    return '#db6205';
+  }
+
+   /**
+   * Foxes need to be at least this number of simulated steps old to be able to have offsprings.
+   *
+   * @protected
+   */
+  protected getBreedingAge(): number {
+    return 15;
+  }
+
+   /**
+   * Foxes have this percentage of chance to produce an offspring.
+   *
+   * @protected
+   */
+  protected getBreedingProbability(): number {
+    return 0.04;
+  }
+
+  /**
+   * Foxes will die once they are this number of simulated steps old.
+   *
+   * @protected
+   */
+  protected getMaxAge(): number {
+    return 150;
+  }
+
+  /**
+   * Foxes can have up to this number of offsprings
+   *
+   * @protected
+   */
+  protected getMaxLitterSize(): number {
+    return 2;
+  }
+
+  /**
+   * Creates a new fox
+   *
+   * @param map
+   * @param location
+   * @protected
+   */
+  protected createAnimal(map: Map, location: Location): Animal {
+    return new Fox(map, location);
+  }
+
+  /**
+   * Become hungrier. If our foodlevel reaches 0, die.
+   * @private
+   */
+  private incrementHunger()
+  {
+    // decrement the food level
+    this.foodLevel--;
+    // if the food level is 0 or lower
+    if(this.foodLevel <= 0) {
+      // kill the fox
+      this.kill();
+    }
   }
 
   public act() {
@@ -63,11 +135,17 @@ export class Fox extends Animal {
 
   private hunt(map: Map): Location | null
   {
+    // find the adjacent locations
     const neighbours = map.getAdjacentLocations(this.location);
+    // do something for each location
     for (const location of neighbours) {
+      // get the animal at the location
       const animal = map.getAnimalAt(location);
+      // if an animal is found and the animal is rabbit and alive
       if (animal != null && animal instanceof Rabbit && animal.alive) {
+        // kill the animal
         animal.kill();
+        // increase the fox its foodlevel
         this.foodLevel += Fox.RABBIT_FOOD_VALUE;
         this.foodLevel = Math.min(this.foodLevel, Fox.MAX_FOOD_VALUE)
 
@@ -75,6 +153,7 @@ export class Fox extends Animal {
       }
     }
 
+    // return null if no food is found
     return null;
   }
 }

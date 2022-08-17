@@ -14,12 +14,18 @@ export class Map {
 
   private _width: number;
 
+  /**
+   * Returns the width of the map
+   */
   public get width(): number {
     return this._width;
   }
 
   private _height: number;
 
+  /**
+   * Returns the height of the map
+   */
   public get height(): number {
     return this._height;
   }

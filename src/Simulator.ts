@@ -4,6 +4,10 @@ import {Fox} from './Fox';
 import {Canvas} from './Canvas';
 import {Stats} from './Stats';
 
+/**
+ * Simulator is the object in charge of running the entire simulation and displaying it on the screen.
+ * It can reset the simulation, simulate a single step and updates the view components.
+ */
 export class Simulator {
   private static INITIAL_FOX_POPULATION = 100;
   private static INITIAL_RABBIT_POPULATION = 250;
