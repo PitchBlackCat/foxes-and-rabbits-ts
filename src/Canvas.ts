@@ -25,7 +25,6 @@ export class Canvas {
   public draw(map: Map) {
     this.clear();
     this.drawTiles(map);
-    this.drawGrid(map);
   }
 
   /**
@@ -49,29 +48,6 @@ export class Canvas {
           this.drawTile(content.location, content.color)
         }
       }
-    }
-  }
-
-  /**
-   * Draw a grid
-   * @param map
-   * @private
-   */
-  private drawGrid(map: Map) {
-    this.ctx.strokeStyle = '#000';
-
-    for (let x of Array(map.width)) {
-      this.ctx.beginPath();
-      this.ctx.moveTo(x * Canvas.TILE_SIZE_IN_PIXELS, 0);
-      this.ctx.lineTo(x * Canvas.TILE_SIZE_IN_PIXELS, this.canvas.height);
-      this.ctx.stroke();
-    }
-
-    for (let y of Array(map.height)) {
-      this.ctx.beginPath();
-      this.ctx.moveTo(0, y * Canvas.TILE_SIZE_IN_PIXELS);
-      this.ctx.lineTo(this.canvas.width, y * Canvas.TILE_SIZE_IN_PIXELS);
-      this.ctx.stroke();
     }
   }
 
