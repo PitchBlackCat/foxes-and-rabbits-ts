@@ -10,6 +10,7 @@ export class Fox extends Animal {
   private static BREEDING_PROBABILITY: number = 0.04;
   private static MAX_LITTER_SIZE: number = 2;
   private static RABBIT_FOOD_VALUE: number = 9;
+  private static MAX_FOOD_VALUE: number = Fox.RABBIT_FOOD_VALUE * 2;
 
   private foodLevel: number;
 
@@ -68,6 +69,7 @@ export class Fox extends Animal {
       if (animal != null && animal instanceof Rabbit && animal.alive) {
         animal.kill();
         this.foodLevel += Fox.RABBIT_FOOD_VALUE;
+        this.foodLevel = Math.min(this.foodLevel, Fox.MAX_FOOD_VALUE)
 
         return location;
       }

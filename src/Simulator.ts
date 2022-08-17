@@ -2,6 +2,7 @@ import {Map} from './Map';
 import {Rabbit} from './Rabbit';
 import {Fox} from './Fox';
 import {Canvas} from './Canvas';
+import {Stats} from './Stats';
 
 export class Simulator {
   private static INITIAL_FOX_POPULATION = 100;
@@ -9,10 +10,12 @@ export class Simulator {
 
   private map: Map;
   private canvas: Canvas;
+  private stats: Stats;
 
-  constructor(map: Map, canvas: Canvas) {
+  constructor(map: Map, canvas: Canvas, stats: Stats) {
     this.map = map;
     this.canvas = canvas;
+    this.stats = stats
   }
 
   reset() {
@@ -21,6 +24,8 @@ export class Simulator {
 
     this.populate();
     this.canvas.draw(this.map);
+
+    this.stats.reset(this.map);
   }
 
   populate() {
@@ -42,6 +47,7 @@ export class Simulator {
     this.clearDeadAnimals();
 
     this.canvas.draw(this.map);
+    this.stats.step(this.map);
   }
 
   private clearDeadAnimals() {

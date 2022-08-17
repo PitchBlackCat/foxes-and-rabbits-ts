@@ -37,7 +37,7 @@ export class Map {
 
   public updateAnimalLocation(animal: Animal, newLocation: Location) {
     if (this.map[newLocation.y][newLocation.x] != null) {
-      throw new Error('trying to move to location that is already occupies');
+      throw new Error('trying to move to location that is already occupied');
     }
 
     this.map[animal.location.y][animal.location.x] = null;
@@ -90,8 +90,8 @@ export class Map {
   }
 
   public getRandomFreeLocation(): Location {
-    const x = randomRange(0, this.width);
-    const y = randomRange(0, this.height);
+    const x = randomRange(0, this.width - 1);
+    const y = randomRange(0, this.height - 1);
     const location: Location = {x, y};
 
     return !this.getAnimalAt(location) ? location : this.getRandomFreeLocation();
@@ -99,7 +99,7 @@ export class Map {
 
   public getRandomFreeAdjacentLocation(location: Location): Location | null {
     const freeAdjacentLocations: Location[] = this.getFreeAdjacentLocations(location);
-    return freeAdjacentLocations ? freeAdjacentLocations[randomInt(freeAdjacentLocations.length - 1)] : null;
+    return freeAdjacentLocations.length > 0 ? freeAdjacentLocations[randomInt(freeAdjacentLocations.length -1)] : null;
   }
 
   public getFreeAdjacentLocations(location: Location): Location[] {
