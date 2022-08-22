@@ -56,20 +56,9 @@ export class Simulator {
 
   step() {
     this.map.actors.forEach(animal => animal.act());
-    this.clearDeadAnimals();
+    this.map.clearDeadAnimals();
 
     this.canvas.draw(this.map);
     this.stats.step(this.map);
-  }
-
-  private clearDeadAnimals() {
-    for (const index in this.map.actors) {
-      const animal = this.map.actors[index];
-      if (!animal.alive) {
-        delete this.map.actors[index];
-        this.map.map[animal.location.y][animal.location.x] = null;
-      }
     }
-  }
-
 }

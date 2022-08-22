@@ -1,6 +1,7 @@
 import {Location} from './Location';
 import {Actor} from './Actor';
 import {randomInt, randomRange} from './functions';
+import {Hunter} from "./Hunter";
 
 /**
  * Map is a class that has a 2-dimensional array representing the world in which our creatures live.
@@ -81,13 +82,28 @@ export class Map {
     this.actors.push(actor);
   }
 
-  /**
-   * Removes an animal from the map
-   * @param actor
-   */
-  public removeActor(actor: Actor): void {
-    this.map[actor.location.y][actor.location.x] = null;
-  }
+    /**
+     * Removes an animal from the map
+     * @param actor
+     */
+    public removeActor(actor: Actor): void {
+        this.map[actor.location.y][actor.location.x] = null;
+        this.actors.splice(this.actors.findIndex(a => actor === a), 1);
+    }
+
+    /**
+     * Removes the dead animals from the map
+     */
+    public clearDeadAnimals() {
+        this.actors = this.actors.filter(actor => {
+            if (actor.alive) {
+                return true
+            }
+
+            this.map[actor.location.y][actor.location.x] = null;
+            return false
+        });
+    }
 
   /**
    * Returns a list of locations that are north, east, south and west of the given location.
