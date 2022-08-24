@@ -5,7 +5,7 @@ import {Location} from './Location';
  * Canvas is in charge of drawing the map on the canvas element in index.html
  */
 export class Canvas {
-  private static TILE_SIZE_IN_PIXELS: number = 10;
+  private static TILE_SIZE_IN_PIXELS: number = 5;
 
   // A reference to the html canvas element
   private canvas: HTMLCanvasElement;
