@@ -53,7 +53,7 @@ export class Controls {
     if (!this.intervalHandle) {
       return;
     }
-    
+
     clearInterval(this.intervalHandle);
     this.intervalHandle = null;
   }
@@ -64,5 +64,4 @@ export class Controls {
   reset() {
     this.simulator.reset();
   }
-
 }

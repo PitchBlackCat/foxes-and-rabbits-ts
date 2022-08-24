@@ -13,9 +13,15 @@ export class Stats {
 
   constructor() {
     // find the html elements that we are going to use to display the stats in.
-    this.stepCountElement = document.getElementById('stepCount') as HTMLInputElement;
-    this.rabbitCountElement = document.getElementById('rabbitCount') as HTMLInputElement;
-    this.foxCountElement = document.getElementById('foxCount') as HTMLInputElement;
+    this.stepCountElement = document.getElementById(
+      'stepCount'
+    ) as HTMLInputElement;
+    this.rabbitCountElement = document.getElementById(
+      'rabbitCount'
+    ) as HTMLInputElement;
+    this.foxCountElement = document.getElementById(
+      'foxCount'
+    ) as HTMLInputElement;
   }
 
   reset(map: Map) {
@@ -32,8 +38,11 @@ export class Stats {
 
   updateAnimalCount(map: Map) {
     // update the population counters
-    this.rabbitCountElement.value = `${map.actors.filter(a => a instanceof Rabbit).length}`;
-    this.foxCountElement.value = `${map.actors.filter(a => a instanceof Fox).length}`;
+    this.rabbitCountElement.value = `${
+      map.actors.filter((a) => a instanceof Rabbit).length
+    }`;
+    this.foxCountElement.value = `${
+      map.actors.filter((a) => a instanceof Fox).length
+    }`;
   }
-
 }

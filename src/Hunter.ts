@@ -1,37 +1,43 @@
 import {Actor} from './Actor';
 import {Drawable} from './Drawable';
-import {Location} from "./Location";
-import {Map} from "./Map";
-import {Fox} from "./Fox";
+import {Location} from './Location';
+import {Map} from './Map';
+import {Fox} from './Fox';
 import {randomItem} from './functions';
 
 /**
  * The hunter tries to protect it's fluffy buns. He hunts foxes down with a grudge.
  */
 export class Hunter implements Actor, Drawable {
-    // Hunters can be from any corner of the world, and come in many different skintones.
-    private static SKINTONES: string[] = ['#FFCC99', '#BF9973', '#80664D', '#403326', '#E6B88A'];
+  // Hunters can be from any corner of the world, and come in many different skintones.
+  private static SKINTONES: string[] = [
+    '#FFCC99',
+    '#BF9973',
+    '#80664D',
+    '#403326',
+    '#E6B88A'
+  ];
 
-    private map: Map;
+  private map: Map;
 
-    private _location: Location;
+  private _location: Location;
 
-    private _color: string;
+  private _color: string;
 
-    constructor(map: Map, location: Location) {
-        this.map = map;
-        this._location = location;
+  constructor(map: Map, location: Location) {
+    this.map = map;
+    this._location = location;
 
-        // pick a random skintone for this hunter.
-        this._color = randomItem(Hunter.SKINTONES);
-    }
+    // pick a random skintone for this hunter.
+    this._color = randomItem(Hunter.SKINTONES);
+  }
 
-    /**
-     * Hunters are the pinacle of evolution and can not be killed nor die.
-     */
-    get alive(): boolean {
-        return true;
-    }
+  /**
+   * Hunters are the pinacle of evolution and can not be killed nor die.
+   */
+  get alive(): boolean {
+    return true;
+  }
 
   /**
    * Returns the current location of the hunter.
@@ -44,7 +50,7 @@ export class Hunter implements Actor, Drawable {
    * Returns the color of this hunter, to be drawn on the canvas
    */
   get color(): string {
-      return this._color;
+    return this._color;
   }
 
   /**
@@ -54,20 +60,22 @@ export class Hunter implements Actor, Drawable {
    */
   set location(newLocation: Location) {
     // update the animal's location on the map
-    this.map.updateActorLocation(this, newLocation)
+    this.map.updateActorLocation(this, newLocation);
     // update the animal's location
     this._location = newLocation;
   }
 
   public act() {
-      // see if we can find a fox to eat; Otherwise, wander to a random adjacent location
-      const newLocation: Location | null = this.hunt(this.map) || this.map.getRandomFreeAdjacentLocation(this.location);
+    // see if we can find a fox to eat; Otherwise, wander to a random adjacent location
+    const newLocation: Location | null =
+      this.hunt(this.map) ||
+      this.map.getRandomFreeAdjacentLocation(this.location);
 
-      // if we can't find a free adjacent location, stand still (If we keep absolutly still, the foxes won't be able to see us!)
-      if (newLocation !== null) {
-        this.location = newLocation
-      }
+    // if we can't find a free adjacent location, stand still (If we keep absolutly still, the foxes won't be able to see us!)
+    if (newLocation !== null) {
+      this.location = newLocation;
     }
+  }
 
   /**
    * Look at all the adjacent locations and see if there's a fox we can shoot.
@@ -76,8 +84,7 @@ export class Hunter implements Actor, Drawable {
    * @param map
    * @private
    */
-  private hunt(map: Map): Location | null
-  {
+  private hunt(map: Map): Location | null {
     // find the adjacent locations
     const neighbours = map.getAdjacentLocations(this.location);
     // do something for each location

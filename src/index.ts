@@ -2,7 +2,7 @@ import {Map} from './Map';
 import {Canvas} from './Canvas';
 import {Simulator} from './Simulator';
 import {Controls} from './Controls';
-import {Stats} from "./Stats";
+import {Stats} from './Stats';
 
 document.addEventListener('DOMContentLoaded', function () {
   const map: Map = new Map(100, 100);

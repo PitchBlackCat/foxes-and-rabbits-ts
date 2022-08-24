@@ -11,9 +11,9 @@ export abstract class Animal implements Actor, Drawable {
   protected map: Map;
 
   protected constructor(
-      map: Map,
-      location: Location,
-      randomAge: boolean = false
+    map: Map,
+    location: Location,
+    randomAge: boolean = false
   ) {
     this._location = location;
     this.map = map;
@@ -30,7 +30,7 @@ export abstract class Animal implements Actor, Drawable {
     return this._alive;
   }
 
-  private _location: Location
+  private _location: Location;
 
   /**
    * Returns the current location of the animal.
@@ -51,7 +51,7 @@ export abstract class Animal implements Actor, Drawable {
    */
   set location(newLocation: Location) {
     // update the animal's location on the map
-    this.map.updateActorLocation(this, newLocation)
+    this.map.updateActorLocation(this, newLocation);
     // update the animal's location
     this._location = newLocation;
   }
@@ -89,13 +89,18 @@ export abstract class Animal implements Actor, Drawable {
     }
 
     // find all free adjacent locations
-    const freeLocations: Location[] = map.getFreeAdjacentLocations(this.location);
+    const freeLocations: Location[] = map.getFreeAdjacentLocations(
+      this.location
+    );
     // current litter counter
     let litterCounter = 0;
     // do something for each free adjacent location
-    freeLocations.forEach(location => {
+    freeLocations.forEach((location) => {
       // if the max liter size is not reached and the animal breeds based on its probability
-      if (litterCounter < this.getMaxLitterSize() && Math.random() < this.getBreedingProbability()) {
+      if (
+        litterCounter < this.getMaxLitterSize() &&
+        Math.random() < this.getBreedingProbability()
+      ) {
         // increment the litter counter
         litterCounter++;
         // add a new animal to the map
@@ -126,7 +131,7 @@ export abstract class Animal implements Actor, Drawable {
    */
   protected abstract getBreedingAge(): number;
 
-   /**
+  /**
    * This animal has this percentage of chance to produce an offspring.
    * @protected
    */

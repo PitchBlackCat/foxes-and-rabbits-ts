@@ -6,7 +6,6 @@ import {Map} from './Map';
  * This class represents a rabbit
  */
 export class Rabbit extends Animal {
-
   public constructor(map: Map, location: Location, randomAge: boolean = false) {
     super(map, location, randomAge);
   }
@@ -81,7 +80,8 @@ export class Rabbit extends Animal {
       this.tryToGiveBirth(this.map);
 
       // wander to a random free adjacent location
-      const newLocation: Location | null = this.map.getRandomFreeAdjacentLocation(this.location);
+      const newLocation: Location | null =
+        this.map.getRandomFreeAdjacentLocation(this.location);
       // if we can't find a free location, die because of overpopulation
       newLocation ? (this.location = newLocation) : this.kill();
     }

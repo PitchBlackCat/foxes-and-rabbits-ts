@@ -21,7 +21,10 @@ export class Fox extends Animal {
   public constructor(map: Map, location: Location, randomAge: boolean = false) {
     super(map, location, randomAge);
     // set the fox its food level
-    this.foodLevel = randomRange(Fox.RABBIT_FOOD_VALUE, Fox.RABBIT_FOOD_VALUE * 2);
+    this.foodLevel = randomRange(
+      Fox.RABBIT_FOOD_VALUE,
+      Fox.RABBIT_FOOD_VALUE * 2
+    );
   }
 
   /**
@@ -31,7 +34,7 @@ export class Fox extends Animal {
     return '#db6205';
   }
 
-   /**
+  /**
    * Foxes need to be at least this number of simulated steps old to be able to have offsprings.
    *
    * @protected
@@ -40,7 +43,7 @@ export class Fox extends Animal {
     return 15;
   }
 
-   /**
+  /**
    * Foxes have this percentage of chance to produce an offspring.
    *
    * @protected
@@ -82,12 +85,11 @@ export class Fox extends Animal {
    * Become hungrier. If our foodlevel reaches 0, die.
    * @private
    */
-  private incrementHunger()
-  {
+  private incrementHunger() {
     // decrement the food level
     this.foodLevel--;
     // if the food level is 0 or lower
-    if(this.foodLevel <= 0) {
+    if (this.foodLevel <= 0) {
       // kill the fox
       this.kill();
     }
@@ -113,10 +115,12 @@ export class Fox extends Animal {
       this.tryToGiveBirth(this.map);
 
       // see if we can find something to eat and take it's place. Otherwise, wander to a random adjacent location
-      const newLocation: Location | null = this.hunt(this.map) || this.map.getRandomFreeAdjacentLocation(this.location);
+      const newLocation: Location | null =
+        this.hunt(this.map) ||
+        this.map.getRandomFreeAdjacentLocation(this.location);
 
       // if we can't find a free adjacent location, die because of overpopulation
-      newLocation ? this.location = newLocation : this.kill();
+      newLocation ? (this.location = newLocation) : this.kill();
     }
   }
 
@@ -127,8 +131,7 @@ export class Fox extends Animal {
    * @param map
    * @private
    */
-  private hunt(map: Map): Location | null
-  {
+  private hunt(map: Map): Location | null {
     // find the adjacent locations
     const neighbours = map.getAdjacentLocations(this.location);
     // do something for each location
@@ -142,7 +145,7 @@ export class Fox extends Animal {
         // increase the fox its foodlevel
         this.foodLevel += Fox.RABBIT_FOOD_VALUE;
         // make sure the foodlevel cannot get above its maximum
-        this.foodLevel = Math.min(this.foodLevel, Fox.MAX_FOOD_LEVEL)
+        this.foodLevel = Math.min(this.foodLevel, Fox.MAX_FOOD_LEVEL);
 
         // return the location
         return location;

@@ -1,80 +1,77 @@
 <html>
-<head>
-  <base href="/ts-foxes-and-rabbits/">
-  <script src="dist/main.js"></script>
+  <head>
+    <base href="/ts-foxes-and-rabbits/" />
+    <script src="dist/main.js"></script>
 
-  <style>
+    <style>
       html {
-          /*background-color: #202125;*/
-          /*color: white;*/
-          background-image: url("https://www.toptal.com/designers/subtlepatterns/uploads/dust_scratches.png");
-          font-family: sans-serif;
+        /*background-color: #202125;*/
+        /*color: white;*/
+        background-image: url('https://www.toptal.com/designers/subtlepatterns/uploads/dust_scratches.png');
+        font-family: sans-serif;
       }
 
       body {
-          min-width: 100%;
-          min-height: 100%;
-          margin: 0;
-          padding: 0;
+        min-width: 100%;
+        min-height: 100%;
+        margin: 0;
+        padding: 0;
       }
 
-      label, button {
-          margin: 0 12px;
-          font-variant-caps: all-small-caps;
+      label,
+      button {
+        margin: 0 12px;
+        font-variant-caps: all-small-caps;
       }
 
       canvas {
-          background-color: #e7ffd8;
-          margin: 12px;
+        background-color: #e7ffd8;
+        margin: 12px;
 
-          box-shadow: 0 1px 1px rgba(0,0,0,0.12),
-          0 2px 2px rgba(0,0,0,0.12),
-          0 4px 4px rgba(0,0,0,0.12),
-          0 8px 8px rgba(0,0,0,0.12),
-          0 16px 16px rgba(0,0,0,0.12);
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 2px 2px rgba(0, 0, 0, 0.12),
+          0 4px 4px rgba(0, 0, 0, 0.12), 0 8px 8px rgba(0, 0, 0, 0.12),
+          0 16px 16px rgba(0, 0, 0, 0.12);
       }
 
       .center {
-          display: flex;
-          justify-content: center;
-          align-items: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
 
       .column {
-          flex-direction: column;
+        flex-direction: column;
       }
-  </style>
-</head>
-<body class="center column">
+    </style>
+  </head>
+  <body class="center column">
+    <div class="center">
+      <h1>Foxes and Rabbits</h1>
+    </div>
 
-<div class="center">
-  <h1>Foxes and Rabbits</h1>
-</div>
+    <div class="center">
+      <button id="start">start</button>
+      <button id="stop">stop</button>
+      <button id="reset">reset</button>
+    </div>
 
-<div class="center">
-  <button id="start">start</button>
-  <button id="stop">stop</button>
-  <button id="reset">reset</button>
-</div>
+    <canvas id="canvas" class="center"></canvas>
 
-<canvas id="canvas" class="center"></canvas>
+    <div class="center">
+      <label>
+        step:
+        <input disabled id="stepCount" style="width: 42px" />
+      </label>
 
-<div class="center">
-  <label>
-    step:
-    <input disabled id="stepCount" style="width: 42px"/>
-  </label>
+      <label>
+        rabbits:
+        <input disabled id="rabbitCount" style="width: 42px" />
+      </label>
 
-  <label>
-    rabbits:
-    <input disabled id="rabbitCount" style="width: 42px"/>
-  </label>
-
-  <label>
-    foxes:
-    <input disabled id="foxCount" style="width: 42px"/>
-  </label>
-</div>
-
-</body>
+      <label>
+        foxes:
+        <input disabled id="foxCount" style="width: 42px" />
+      </label>
+    </div>
+  </body>
 </html>

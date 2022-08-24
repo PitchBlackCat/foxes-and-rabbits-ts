@@ -1,7 +1,7 @@
 import {Location} from './Location';
 import {Actor} from './Actor';
 import {randomInt, randomRange} from './functions';
-import {Hunter} from "./Hunter";
+import {Hunter} from './Hunter';
 
 /**
  * Map is a class that has a 2-dimensional array representing the world in which our creatures live.
@@ -10,7 +10,6 @@ import {Hunter} from "./Hunter";
  * It has a couple of utility methods to find the fields surrounding a given field.
  */
 export class Map {
-
   // A 2-dimensional array representing the world
   public map: any[][] = [];
 
@@ -56,7 +55,7 @@ export class Map {
    * @param location
    */
   public getActorAt(location: Location): Actor | null {
-    return this.map[location.y][location.x]
+    return this.map[location.y][location.x];
   }
 
   /**
@@ -66,7 +65,13 @@ export class Map {
    */
   public updateActorLocation(actor: Actor, newLocation: Location) {
     if (this.map[newLocation.y][newLocation.x] != null) {
-      throw new Error(`Trying to move ${actor.constructor.name} to location [${newLocation.x}, ${newLocation.y}], but it's already occupied by ${this.map[newLocation.y][newLocation.x].constructor.name}`);
+      throw new Error(
+        `Trying to move ${actor.constructor.name} to location [${
+          newLocation.x
+        }, ${newLocation.y}], but it's already occupied by ${
+          this.map[newLocation.y][newLocation.x].constructor.name
+        }`
+      );
     }
 
     this.map[actor.location.y][actor.location.x] = null;
@@ -82,28 +87,31 @@ export class Map {
     this.actors.push(actor);
   }
 
-    /**
-     * Removes an animal from the map
-     * @param actor
-     */
-    public removeActor(actor: Actor): void {
-        this.map[actor.location.y][actor.location.x] = null;
-        this.actors.splice(this.actors.findIndex(a => actor === a), 1);
-    }
+  /**
+   * Removes an animal from the map
+   * @param actor
+   */
+  public removeActor(actor: Actor): void {
+    this.map[actor.location.y][actor.location.x] = null;
+    this.actors.splice(
+      this.actors.findIndex((a) => actor === a),
+      1
+    );
+  }
 
-    /**
-     * Removes the dead animals from the map
-     */
-    public clearDeadAnimals() {
-        this.actors = this.actors.filter(actor => {
-            if (actor.alive) {
-                return true
-            }
+  /**
+   * Removes the dead animals from the map
+   */
+  public clearDeadAnimals() {
+    this.actors = this.actors.filter((actor) => {
+      if (actor.alive) {
+        return true;
+      }
 
-            this.map[actor.location.y][actor.location.x] = null;
-            return false
-        });
-    }
+      this.map[actor.location.y][actor.location.x] = null;
+      return false;
+    });
+  }
 
   /**
    * Returns a list of locations that are north, east, south and west of the given location.
@@ -112,35 +120,35 @@ export class Map {
    * @param location
    */
   public getAdjacentLocations(location: Location): Location[] {
-    const locations: Location[] = []
+    const locations: Location[] = [];
 
     switch (location.x) {
       case 0: {
-        locations.push({x: location.x + 1, y: location.y} as Location)
+        locations.push({x: location.x + 1, y: location.y} as Location);
         break;
       }
       case this.width - 1: {
-        locations.push({x: location.x - 1, y: location.y} as Location)
+        locations.push({x: location.x - 1, y: location.y} as Location);
         break;
       }
       default: {
-        locations.push({x: location.x + 1, y: location.y} as Location)
-        locations.push({x: location.x - 1, y: location.y} as Location)
+        locations.push({x: location.x + 1, y: location.y} as Location);
+        locations.push({x: location.x - 1, y: location.y} as Location);
       }
     }
 
     switch (location.y) {
       case 0: {
-        locations.push({x: location.x, y: location.y + 1} as Location)
+        locations.push({x: location.x, y: location.y + 1} as Location);
         break;
       }
       case this.height - 1: {
-        locations.push({x: location.x, y: location.y - 1} as Location)
+        locations.push({x: location.x, y: location.y - 1} as Location);
         break;
       }
       default: {
-        locations.push({x: location.x, y: location.y + 1} as Location)
-        locations.push({x: location.x, y: location.y - 1} as Location)
+        locations.push({x: location.x, y: location.y + 1} as Location);
+        locations.push({x: location.x, y: location.y - 1} as Location);
       }
     }
 
@@ -162,15 +170,19 @@ export class Map {
    * Returns a random location that is not occupied by anything and adjacent to the given location
    */
   public getRandomFreeAdjacentLocation(location: Location): Location | null {
-    const freeAdjacentLocations: Location[] = this.getFreeAdjacentLocations(location);
-    return freeAdjacentLocations.length > 0 ? freeAdjacentLocations[randomInt(freeAdjacentLocations.length -1)] : null;
+    const freeAdjacentLocations: Location[] =
+      this.getFreeAdjacentLocations(location);
+    return freeAdjacentLocations.length > 0
+      ? freeAdjacentLocations[randomInt(freeAdjacentLocations.length - 1)]
+      : null;
   }
-
 
   /**
    * Returns all location that are not occupied by anything and adjacent to the given location
    */
   public getFreeAdjacentLocations(location: Location): Location[] {
-    return this.getAdjacentLocations(location).filter(location => !this.getActorAt(location));
+    return this.getAdjacentLocations(location).filter(
+      (location) => !this.getActorAt(location)
+    );
   }
 }

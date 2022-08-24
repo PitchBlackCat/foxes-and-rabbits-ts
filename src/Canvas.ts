@@ -45,7 +45,7 @@ export class Canvas {
       for (let x = 0; x < map.width; x++) {
         const content = map.map[y][x];
         if (content !== null) {
-          this.drawTile(content.location, content.color)
+          this.drawTile(content.location, content.color);
         }
       }
     }
@@ -76,5 +76,4 @@ export class Canvas {
     this.canvas.width = map.width * Canvas.TILE_SIZE_IN_PIXELS;
     this.canvas.height = map.height * Canvas.TILE_SIZE_IN_PIXELS;
   }
-
 }
